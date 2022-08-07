@@ -49,14 +49,19 @@ class _HomeScreenState extends State<HomeScreen> {
             return Card(
               child: Row(
                 children: [
-                  TextField(
-                    decoration: InputDecoration(hintText: fields[index].title),
-                    controller: fields[index].controller,
+                  Expanded(
+                    child: TextField(
+                      decoration:
+                          InputDecoration(hintText: fields[index].title),
+                      controller: fields[index].controller,
+                    ),
                   ),
                   IconButton(
                       onPressed: () {
-                        var field = fields.removeAt(index);
-                        field.controller.dispose();
+                        setState(() {
+                          var field = fields.removeAt(index);
+                          field.controller.dispose();
+                        });
                       },
                       icon: Icon(Icons.delete))
                 ],
