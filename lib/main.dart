@@ -28,9 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
-    fields.forEach((element) {
-      element.controller.dispose();
-    });
+    for (var f in fields) {
+      f.controller.dispose();
+    }
     super.dispose();
   }
 
