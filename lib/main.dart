@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 void main() {
@@ -46,9 +47,19 @@ class _HomeScreenState extends State<HomeScreen> {
           itemCount: fields.length,
           itemBuilder: (ctx, index) {
             return Card(
-              child: TextField(
-                decoration: InputDecoration(hintText: fields[index].title),
-                controller: fields[index].controller,
+              child: Row(
+                children: [
+                  TextField(
+                    decoration: InputDecoration(hintText: fields[index].title),
+                    controller: fields[index].controller,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        var field = fields.removeAt(index);
+                        field.controller.dispose();
+                      },
+                      icon: Icon(Icons.delete))
+                ],
               ),
             );
           }),
@@ -61,4 +72,14 @@ class MyField {
   final TextEditingController controller = TextEditingController();
 
   MyField(this.title);
+
+  @override
+  bool operator ==(covariant MyField other) {
+    if (identical(this, other)) return true;
+
+    return other.title == title;
+  }
+
+  @override
+  int get hashCode => title.hashCode;
 }
